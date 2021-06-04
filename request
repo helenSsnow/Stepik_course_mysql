@@ -1,0 +1,80 @@
+Создание таблицы:
+CREATE TABLE book(
+    book_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50),
+    author VARCHAR(30),
+    price DECIMAL(8, 2),
+    amount INT
+);
+
+Вставка записи в таблицу:
+INSERT INTO book(title,author,price,amount)
+VALUES("Мастер и Маргарита","Булгаков М.А.", 670.99, 3);
+SELECT * FROM book
+
+INSERT INTO book (title, author, price, amount)
+VALUES("Белая гвардия", "Булгаков М.А.", 540.50, 5);
+INSERT INTO book (title, author, price, amount)
+VALUES("Идиот", "Достоевский Ф.М.", 460.00, 10);
+INSERT INTO book (title, author, price, amount)
+VALUES("Братья Карамазовы", "Достоевский Ф.М.", 799.01, 2);
+SELECT * FROM book
+
+Выборка всех данных из таблицы:
+SELECT * FROM book
+
+Выборка отдельных столбцов:
+SELECT author,title, price FROM book
+
+Выборка отдельных столбцов и присвоение им имен:
+SELECT title AS Название, author AS Автор
+FROM book;
+
+Выборка данных с созданием вычисляемого столбца:
+SELECT title,amount, amount * 1.65 AS pack
+FROM book
+
+Выборка данных, вычисляемые столбцы, математические функции:
+SELECT title, author, amount, ROUND((price - (price * 30 / 100)), 2) AS new_price
+FROM book;
+
+Выборка данных, вычисляемые столбцы, логические функции:
+SELECT author, title,
+ ROUND(IF(author="Булгаков М.А.", price + price * 0.1, IF(author="Есенин С.А.", price * 1.05, price)), 2) 
+AS new_price
+FROM book;
+
+Выборка данных по условию:
+SELECT author, title, price
+FROM book
+WHERE amount < 10;
+
+Выборка данных, логические операции:
+SELECT title, author, price, amount
+FROM book
+WHERE (price < 500 OR price > 600) AND (amount * price) >= 5000;
+
+Выборка данных, операторы BETWEEN, IN:
+SELECT title, author
+FROM book
+WHERE price BETWEEN 540.50 AND 800 AND amount IN(2, 3, 5, 7);
+
+Выборка данных с сортировкой:
+SELECT author, title
+FROM book
+WHERE amount BETWEEN 2 AND 14
+ORDER BY author DESC, title ASC;
+
+Выборка данных, оператор LIKE:
+SELECT title, author
+FROM book
+WHERE title LIKE '%_ %_' AND author LIKE '%С.%'
+ORDER BY title;
+
+Выбор уникальных элементов столбца:
+SELECT amount 
+FROM book
+GROUP BY amount;
+
+Выборка данных, групповые функции SUM и COUNT:
+
