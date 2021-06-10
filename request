@@ -105,3 +105,19 @@ SELECT ROUND(AVG((price)), 2) AS "Средняя_цена",
 FROM book
 WHERE amount >= 5 AND amount <= 14;
 
+Выборка данных по условию, групповые функции, WHERE и HAVING:
+SELECT author, SUM(price * amount) AS "Стоимость"
+FROM book
+WHERE title <> "Идиот" AND title <> "Белая гвардия"
+GROUP BY author 
+HAVING SUM(price * amount) > 5000
+ORDER BY author DESC;
+
+Вложенный запрос, возвращающий одно значение:
+SELECT author, title, price
+FROM book
+WHERE price <= (
+         SELECT AVG(price) 
+         FROM book
+      )
+ORDER by price DESC;
